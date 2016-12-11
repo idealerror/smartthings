@@ -144,7 +144,7 @@ def poll()
 
 def initialize(){
     def freq = 1
-    schedule("* * * * * ?", checkLight)
+    schedule("0 0/1 * * * ?", checkLight)
 }
 
 def checkLight(){
