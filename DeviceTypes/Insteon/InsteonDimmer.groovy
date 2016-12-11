@@ -134,20 +134,24 @@ def sendCmd(num, level)
 
 def refresh()
 {
+    log.debug "Refreshing.."
     poll()
 }
 
 def poll()
 {
+    log.debug "Polling.."
     getStatus()
 }
 
 def ping()
 {
+    log.debug "Pinging.."
     poll()
 }
 
 def initialize(){
+    log.debug "Initializing.."
     def freq = 1
     schedule("0 0/1 * * * ?", poll)
 }
