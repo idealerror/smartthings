@@ -134,7 +134,7 @@ def sendCmd(num, level)
 
 def refresh()
 {
-	poll()
+    poll()
 }
 
 def poll()
@@ -142,13 +142,14 @@ def poll()
     getStatus()
 }
 
-def initialize(){
-    def freq = 1
-    schedule("0 0/1 * * * ?", checkLight)
+def ping()
+{
+    poll()
 }
 
-def checkLight(){
-    poll()
+def initialize(){
+    def freq = 1
+    schedule("0 0/1 * * * ?", poll)
 }
 
 def getStatus() {
