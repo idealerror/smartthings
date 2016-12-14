@@ -1,5 +1,5 @@
 /**
- *  Insteon Dimmer Switch
+ *  Insteon On/Off Switch
  *  Original Author     : ethomasii@gmail.com
  *  Creation Date       : 2013-12-08
  *
