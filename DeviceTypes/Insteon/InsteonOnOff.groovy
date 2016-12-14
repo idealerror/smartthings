@@ -118,22 +118,25 @@ def sendCmd(num, level)
 
 def refresh()
 {
+    log.debug "Refreshing.."
     poll()
 }
 
 def poll()
 {
+    log.debug "Polling.."
     getStatus()
+    runIn(180, refresh)
 }
 
 def ping()
 {
+    log.debug "Pinging.."
     poll()
 }
 
 def initialize(){
-    def freq = 1
-    schedule("0 0/1 * * * ?", poll)
+    poll()
 }
 
 def getStatus() {

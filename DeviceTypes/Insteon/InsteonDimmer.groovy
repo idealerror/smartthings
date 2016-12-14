@@ -37,7 +37,7 @@ preferences {
  
 metadata {
     definition (name: "Insteon Dimmer Switch or Plug", author: "idealerror", oauth: true) {
-    	capability "Switch Level"
+        capability "Switch Level"
         capability "Polling"
         capability "Switch"
         capability "Refresh"
@@ -50,29 +50,29 @@ metadata {
     // UI tile definitions
     tiles(scale:2) {
        multiAttributeTile(name:"switch", type: "lighting", width: 6, height: 4, canChangeIcon: true){
-			tileAttribute ("device.switch", key: "PRIMARY_CONTROL") {
-				attributeState "on", label:'${name}', action:"switch.off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"turningOff"
-				attributeState "off", label:'${name}', action:"switch.on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"turningOn"
-				attributeState "turningOn", label:'${name}', action:"switch.off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"turningOff"
-				attributeState "turningOff", label:'${name}', action:"switch.on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"turningOn"
-			}
+            tileAttribute ("device.switch", key: "PRIMARY_CONTROL") {
+                attributeState "on", label:'${name}', action:"switch.off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"turningOff"
+                attributeState "off", label:'${name}', action:"switch.on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"turningOn"
+                attributeState "turningOn", label:'${name}', action:"switch.off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"turningOff"
+                attributeState "turningOff", label:'${name}', action:"switch.on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"turningOn"
+            }
             
            tileAttribute ("device.level", key: "SLIDER_CONTROL") {
                attributeState "level", action:"switch level.setLevel"
            }
 
-		}
+        }
         
         standardTile("refresh", "device.switch", width: 2, height: 2, inactiveLabel: false, decoration: "flat") {
-			state "default", label:'', action:"refresh.refresh", icon:"st.secondary.refresh"
-		}
+            state "default", label:'', action:"refresh.refresh", icon:"st.secondary.refresh"
+        }
 
-		valueTile("level", "device.level", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
-			state "level", label:'${currentValue} %', unit:"%", backgroundColor:"#ffffff"
-		}
+        valueTile("level", "device.level", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
+            state "level", label:'${currentValue} %', unit:"%", backgroundColor:"#ffffff"
+        }
 
-		main(["switch"])
-		details(["switch", "level", "refresh"])
+        main(["switch"])
+        details(["switch", "level", "refresh"])
     }
 }
 
@@ -96,18 +96,18 @@ def off() {
 
 def setLevel(value) {
 
-	// log.debug "setLevel >> value: $value"
+    // log.debug "setLevel >> value: $value"
     
     // Max is 255
     def percent = value / 100
     def realval = percent * 255
-	def valueaux = realval as Integer
-	def level = Math.max(Math.min(valueaux, 255), 0)
-	if (level > 0) {
-		sendEvent(name: "switch", value: "on")
-	} else {
-		sendEvent(name: "switch", value: "off")
-	}
+    def valueaux = realval as Integer
+    def level = Math.max(Math.min(valueaux, 255), 0)
+    if (level > 0) {
+        sendEvent(name: "switch", value: "on")
+    } else {
+        sendEvent(name: "switch", value: "off")
+    }
     // log.debug "dimming value is $valueaux"
     log.debug "dimming to $level"
     dim(level,value)
@@ -142,6 +142,7 @@ def poll()
 {
     log.debug "Polling.."
     getStatus()
+    runIn(180, refresh)
 }
 
 def ping()
@@ -151,9 +152,7 @@ def ping()
 }
 
 def initialize(){
-    log.debug "Initializing.."
-    def freq = 1
-    schedule("0 0/1 * * * ?", poll)
+    poll()
 }
 
 def getStatus() {
@@ -168,7 +167,7 @@ def getStatus() {
     try {
         httpPost(params) { resp ->
 
-			def jsonSlurper = new JsonSlurper()
+            def jsonSlurper = new JsonSlurper()
             def object = jsonSlurper.parseText("${resp.data}")
 
             log.debug "Percent: ${object.percent}"
