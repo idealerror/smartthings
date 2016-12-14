@@ -20,6 +20,7 @@
  * 
  *  Changelog:
  * 
+ *  2016-12-13: Added background refreshing every 3 minutes
  *  2016-11-21: Added refresh/polling functionality
  *  2016-10-15: Added full dimming functions
  *  2016-10-01: Redesigned interface tiles
