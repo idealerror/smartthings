@@ -37,7 +37,7 @@ preferences {
 } 
  
 metadata {
-    definition (name: "Insteon Dimmer Switch or Plug", author: "idealerror", oauth: true) {
+    definition (name: "Insteon On/Off Switch or Plug", author: "idealerror", oauth: true) {
         capability "Polling"
         capability "Switch"
         capability "Refresh"
