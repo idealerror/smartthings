@@ -1,28 +1,30 @@
 <?php
-// Pull ?url= from URL
-$url = $_GET['url'];
+// // Pull ?url= from URL
+// $url = $_GET['url'];
 
-// Check if URL contains /sx.xml
-if(!stristr($url,"sx.xml")){ die("Error: Cannot create object"); }
+// // Check if URL contains /sx.xml
+// if(!stristr($url,"sx.xml")){ die("Error: Cannot create object"); }
 
-// Make call out to hub
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL,$url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$hub_output = curl_exec ($ch);
-curl_close ($ch);
+// // Make call out to hub
+// $ch = curl_init();
+// curl_setopt($ch, CURLOPT_URL,$url);
+// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// $hub_output = curl_exec ($ch);
+// curl_close ($ch);
 
-// Parse XML string
-$xml = simplexml_load_string($hub_output) or die("Error: Cannot create object");
+// // Parse XML string
+// $xml = simplexml_load_string($hub_output) or die("Error: Cannot create object");
 
-// Convert object array into PHP array
-$array = (array)$xml;
+// // Convert object array into PHP array
+// $array = (array)$xml;
 
-// Pull <X D="" />
-$x = (array)$array['X'];
+// // Pull <X D="" />
+// $x = (array)$array['X'];
 
-// Pull D=""
-$status = $x['@attributes']['D'];
+// // Pull D=""
+// $status = $x['@attributes']['D'];
+
+$status = "2D376FXX1515151515";
 
 // Pull the last 2 characters of the D="" Output
 $val = substr($status, -2);
